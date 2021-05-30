@@ -1,0 +1,6 @@
+{
+    "vetur.validation.template": false,
+    "eslint.codeAction.disableRuleComment": {
+        "enable": false
+    }
+}
