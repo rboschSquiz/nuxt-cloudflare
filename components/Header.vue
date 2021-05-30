@@ -16,31 +16,12 @@
                 
                 <!-- Main Navigation -->
                 <div class="collapse navbar-collapse flex-grow-0 ml-auto order-md-2 order-lg-1" id="main-navbar" data-parent="#navbar-toggle">
-                    
-                    <ul class="navbar-nav ml-auto mr-2 pt-lg-0 pt-3">        <li class="nav-item px-lg-3 mb-2 mb-lg-0"><a class="nav-link px-0 py-1 border-bottom  active border-primary text-primary" href="https://sales-team.matrix.squiz.cloud/testing/gilmore">Home</a></li>    <li class="nav-item px-lg-3 mb-2 mb-lg-0"><a class="nav-link px-0 py-1 border-bottom  border-white text-dark" href="https://sales-team.matrix.squiz.cloud/testing/gilmore/styles">Styles</a></li><li class="nav-item px-lg-3 mb-2 mb-lg-0"><a class="nav-link px-0 py-1 border-bottom  border-white text-dark" href="https://sales-team.matrix.squiz.cloud/testing/gilmore/components">Components</a></li><li class="nav-item px-lg-3 mb-2 mb-lg-0"><a class="nav-link px-0 py-1 border-bottom  border-white text-dark" href="https://sales-team.matrix.squiz.cloud/testing/gilmore/theme">Theme</a></li><li class="nav-item px-lg-3 mb-2 mb-lg-0"><a class="nav-link px-0 py-1 border-bottom  border-white text-dark" href="https://sales-team.matrix.squiz.cloud/testing/gilmore/form">Form</a></li></ul>
-                    
-                </div><!--.collapse-->
-                
-                    <!-- Logged In User Content -->
-                    <ul class="navbar-nav ml-2 order-md-1 order-lg-3 d-none d-lg-block">
-                        <li class="nav-item dropdown">
-                            <a class="dropdown-toggle btn btn-primary text-white" href="#" data-toggle="dropdown">
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                                <span class="sr-only">User settings</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right position-absolute"> 
-                                <h6 class="dropdown-header">Ricky Bosch</h6>
-                                
-                                    
-                                    <a class="dropdown-item" href="https://sales-team.matrix.squiz.cloud/testing/gilmore/_edit"><i class="fas fa-edit fa-fw" aria-hidden="true"></i> Edit Page</a>
-                                
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="https://sales-team.matrix.squiz.cloud/testing/gilmore?SQ_ACTION=logout"><i class="fas fa-sign-out-alt"></i> Log Out</a>
-                            </div>
+                    <ul class="navbar-nav ml-auto mr-2 pt-lg-0 pt-3" v-if="!loading">        
+                        <li class="nav-item px-lg-3 mb-2 mb-lg-0" v-for="item in menu">
+                            <NuxtLink :to="item.name === 'index' ? '/' : item.name">{{ item.short_name }}</NuxtLink>
                         </li>
                     </ul>
-                
-            
+                </div><!--.collapse-->
             </div><!--.container-->
         </div><!--.navbar-->
     </header>
@@ -48,10 +29,33 @@
 
 <script>
     export default {
-        
-    }
+        components: {
+
+        },
+        data () {
+            return {
+                menu: [],
+                loading: true
+            }
+        },
+        mounted: function () {
+            this.getContent()
+        },
+        methods: {
+            getContent: function () {
+            // this.$axios.$get('https://nzdemos-web.squiz.cloud/jamstack/home?SQ_PAINT_LAYOUT_NAME=json&SQ_DESIGN_NAME=json', {})
+                this.$axios.$get('https://nzdemos-web.squiz.cloud/jamstack/api/menu-listing/_nocache', {})
+                    .then((data) => {
+                        this.menu = data
+                        this.loading = false
+                    })
+            }
+        }
+}
 </script>
 
-<style scoped>
-
+<style lang="scss">
+    .main-header {
+        margin-bottom: 100px;
+    }
 </style>

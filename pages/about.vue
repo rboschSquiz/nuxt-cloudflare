@@ -21,7 +21,7 @@ export default {
   methods: {
     getContent: function () {
       // this.$axios.$get('https://nzdemos-web.squiz.cloud/jamstack/home?SQ_PAINT_LAYOUT_NAME=json&SQ_DESIGN_NAME=json', {})
-      this.$axios.$get('https://nzdemos-web.squiz.cloud/jamstack/api/api-gateway/_nocache?id=77097', {})
+      this.$axios.$get('https://nzdemos-web.squiz.cloud/jamstack/api/api-gateway/_nocache?id=77101', {})
         .then((data) => {
           this.content = {
             template: `${data.contents}`,
