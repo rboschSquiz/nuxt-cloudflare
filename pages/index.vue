@@ -1,9 +1,7 @@
 <template>
-<div>
   <!-- <button @click="loading = !loading" type="button">Show stuff</button> -->
   <div v-html="content.template"></div>
   <!-- <component v-bind:is="ssrContent.name"></component> -->
-</div>
 </template>
 
 <script>
@@ -13,8 +11,7 @@ export default {
     return {
       content: {
         template: '<div></div>'
-      },
-      loading: true
+      }
     }
   },
   async fetch() {
@@ -23,8 +20,6 @@ export default {
     )
     .then(res => res.json())
     .then(data => {
-      this.loading = false
-
       return {
         name: data.name,
         template: data.contents
