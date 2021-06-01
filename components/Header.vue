@@ -16,7 +16,7 @@
                 
                 <!-- Main Navigation -->
                 <div class="collapse navbar-collapse flex-grow-0 ml-auto order-md-2 order-lg-1" id="main-navbar" data-parent="#navbar-toggle">
-                    <ul class="navbar-nav ml-auto mr-2 pt-lg-0 pt-3" v-if="!loading">        
+                    <ul class="navbar-nav ml-auto mr-2 pt-lg-0 pt-3">        
                         <li class="nav-item px-lg-3 mb-2 mb-lg-0" v-for="item in menu">
                             <NuxtLink :to="item.name === 'index' ? '/' : item.name">{{ item.short_name }}</NuxtLink>
                         </li>
@@ -38,18 +38,12 @@
                 loading: true
             }
         },
-        mounted: function () {
-            this.getContent()
-        },
-        methods: {
-            getContent: function () {
-            // this.$axios.$get('https://nzdemos-web.squiz.cloud/jamstack/home?SQ_PAINT_LAYOUT_NAME=json&SQ_DESIGN_NAME=json', {})
-                this.$axios.$get('https://nzdemos-web.squiz.cloud/jamstack/api/menu-listing/_nocache', {})
-                    .then((data) => {
-                        this.menu = data
-                        this.loading = false
-                    })
-            }
+        async fetch() {
+            this.menu = await fetch(
+                'https://nzdemos-web.squiz.cloud/jamstack/api/menu-listing/_nocache'
+            )
+            .then(res => res.json())
+            .then(data => data)
         }
 }
 </script>

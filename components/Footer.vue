@@ -5,7 +5,7 @@
             <div class="row mb-5">
                 <div class="col-md mb-3">
                     
-                    <ul class="list-unstyled text-center text-md-left" v-if="!loading">        
+                    <ul class="list-unstyled text-center text-md-left">        
                         <li class="mb-3" v-for="item in menu">
                             <NuxtLink :to="item.name === 'index' ? '/' : item.name">{{ item.short_name }}</NuxtLink>
                         </li>
@@ -58,22 +58,15 @@
         },
         data () {
             return {
-                menu: [],
-                loading: true
+                menu: []
             }
         },
-        mounted: function () {
-            this.getContent()
-        },
-        methods: {
-            getContent: function () {
-            // this.$axios.$get('https://nzdemos-web.squiz.cloud/jamstack/home?SQ_PAINT_LAYOUT_NAME=json&SQ_DESIGN_NAME=json', {})
-                this.$axios.$get('https://nzdemos-web.squiz.cloud/jamstack/api/menu-listing/_nocache', {})
-                    .then((data) => {
-                        this.menu = data
-                        this.loading = false
-                    })
-            }
+        async fetch() {
+            this.menu = await fetch(
+                'https://nzdemos-web.squiz.cloud/jamstack/api/menu-listing/_nocache'
+            )
+            .then(res => res.json())
+            .then(data => data)
         }
 }
 </script>
