@@ -1,9 +1,9 @@
 <template>
   <v-app dark>
-    <Header/>
+    <Header keep-alive/>
     <v-main>
       <v-container>
-        <nuxt />
+        <nuxt/>
       </v-container>
     </v-main>
     <Footer/>
@@ -29,5 +29,9 @@ export default {
 <style lang="scss">
   .v-application {
     font-family: 'Poppins', sans-serif !important;
+
+    a {
+      color: white;
+    }
   }
 </style>

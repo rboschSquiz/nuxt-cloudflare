@@ -61,12 +61,25 @@
                 menu: []
             }
         },
-        async fetch() {
-            this.menu = await fetch(
-                'https://nzdemos-web.squiz.cloud/jamstack/api/menu-listing/_nocache'
-            )
-            .then(res => res.json())
-            .then(data => data)
+        // async fetch() {
+        //     this.menu = await fetch(
+        //         'https://nzdemos-web.squiz.cloud/jamstack/api/menu-listing/_nocache'
+        //     )
+        //     .then(res => res.json())
+        //     .then(data => data)
+        // }
+        mounted: function () {
+            this.getContent()
+        },
+        methods: {
+            getContent: function () {
+            // this.$axios.$get('https://nzdemos-web.squiz.cloud/jamstack/home?SQ_PAINT_LAYOUT_NAME=json&SQ_DESIGN_NAME=json', {})
+                this.$axios.$get('https://nzdemos-web.squiz.cloud/jamstack/api/menu-listing/_nocache', {})
+                    .then((data) => {
+                        this.menu = data
+                        this.loading = false
+                    })
+            }
         }
 }
 </script>
