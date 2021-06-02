@@ -17,7 +17,7 @@ export default {
   },
   async fetch() {
     this.content = await fetch(
-      'https://nzdemos-web.squiz.cloud/jamstack/api/api-gateway/_nocache?id=77342'
+      'https://nzdemos-web.squiz.cloud/jamstack/api/api-gateway/_nocache?id=77364'
     )
     .then(res => res.json())
     .then(data => {
