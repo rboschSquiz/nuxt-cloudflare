@@ -16,7 +16,7 @@
                 
                 <!-- Main Navigation -->
                 <div class="collapse navbar-collapse flex-grow-0 ml-auto order-md-2 order-lg-1" id="main-navbar" data-parent="#navbar-toggle">
-                    <ul class="navbar-nav ml-auto mr-2 pt-lg-0 pt-3" v-if="!loading">        
+                    <ul class="navbar-nav ml-auto mr-2 pt-lg-0 pt-3">        
                         <li class="nav-item px-lg-3 mb-2 mb-lg-0" v-for="item in menu">
                             <NuxtLink :to="item.name === 'index' ? '/' : `/${item.name}`">{{ item.short_name }}</NuxtLink>
                         </li>
@@ -39,16 +39,11 @@
             }
         },
         // async fetch() {
-        //     this.content = await fetch(
-        //         'https://nzdemos-web.squiz.cloud/jamstack/api/api-gateway/_nocache?id=77097'
+        //     this.menu = await fetch(
+        //         'https://nzdemos-web.squiz.cloud/jamstack/api/menu-listing/_nocache'
         //     )
         //     .then(res => res.json())
-        //     .then(data => {
-        //         return {
-        //             name: data.name,
-        //             template: data.contents
-        //         }
-        //     })
+        //     .then(data => data)
         // }
         mounted: function () {
             this.getContent()
