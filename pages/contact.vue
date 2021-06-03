@@ -1,5 +1,5 @@
 <template>
-  <component id="testing-area" v-if="!loading" :is="content"></component>
+  <div v-html="content.template"></div>
 </template>
 
 <script>
@@ -15,26 +15,17 @@ export default {
       loading: true
     }
   },
-  mounted: function () {
-    this.getContent()
-  },
-  methods: {
-    getContent: function () {
-      // this.$axios.$get('https://nzdemos-web.squiz.cloud/jamstack/home?SQ_PAINT_LAYOUT_NAME=json&SQ_DESIGN_NAME=json', {})
-      this.$axios.$get('https://nzdemos-web.squiz.cloud/jamstack/api/api-gateway/_nocache?id=77105', {})
-        .then((data) => {
-          this.content = {
-            template: `${data.contents}`,
-            data () {
-              return {
-                value: true
-              }
-            }
-          }
-
-          this.loading = false
-        })
-    }
+  async fetch() {
+    this.content = await fetch(
+      'https://nzdemos-web.squiz.cloud/jamstack/api/api-gateway/_nocache?id=77105'
+    )
+    .then(res => res.json())
+    .then(data => {
+      return {
+        name: data.name,
+        template: data.contents
+      }
+    })
   }
 }
 </script>

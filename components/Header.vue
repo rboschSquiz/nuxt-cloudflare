@@ -70,7 +70,7 @@
     .v-application {
         .main-header {
             
-            margin-bottom: 88px;
+            margin-bottom: 102px;
 
             a {
                 color: black;

@@ -27,6 +27,9 @@ export default {
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
+    // { src: '~/plugins/jquery-3.4.1.min.js', mode: 'client'}
+    // { src: '~/plugins/popper-1.14.7.min.js', mode: 'client'},
+    { src: '~/plugins/bootstrap-4.3.1.min.js', mode: 'client'}
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -69,15 +72,21 @@ export default {
   // Content module configuration: https://go.nuxtjs.dev/config-content
   content: {},
 
+  router: {
+    trailingSlash: false,
+  },
+
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['~/assets/variables.scss'],
     defaultAssets: {
+      spacer: '1rem',
       font: {
         family: 'Poppins' 
       },
       icons: 'fa'
     },
+    treeShake: true,
     theme: {
       dark: false,
       themes: {
