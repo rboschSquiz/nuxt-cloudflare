@@ -1,0 +1,23 @@
+name: Deploy Pages project
+on:
+  repository_dispatch:
+  workflow_dispatch:
+    inputs:
+      project_name:
+        description: 'Project name to deploy'
+        required: true
+
+jobs:
+  deploy_project:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: "Check project name if repository_dispatch"
+      run: "echo 'Missing project name in repository_dispatch client_payload'; exit 1"
+      if: ${{ github.event_name == 'repository_dispatch' && github.event.client_payload.project_name == null }}
+    - run: ./deploy.sh
+    env:
+      CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+      CF_API_KEY: ${{ secrets.CF_API_KEY }}
+      CF_EMAIL: ${{ secrets.CF_EMAIL }}
+      PROJECT_NAME: ${{ github.event.inputs.project_name || github.event.client_payload.project_name }}
