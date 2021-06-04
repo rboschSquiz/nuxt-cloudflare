@@ -3,6 +3,9 @@ name: ci
 on:
   repository_dispatch: 
     types: [matrix_push]
+    branches:
+      - main
+      - master
   push:
     branches:
       - main
